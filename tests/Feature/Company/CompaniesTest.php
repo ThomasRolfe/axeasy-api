@@ -54,8 +54,8 @@ class CompaniesTest extends TestCase
         $response = $this->actingAs($user)->get('/api/user');
 
         $response->assertStatus(200);
-
-        $response->assertJsonPath('company.label', $company->label);
+        
+        $response->assertJsonPath('data.company.label', $company->label);
     }
 
 }
