@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function scholarships()
+    {
+        return $this->hasOneThrough(Scholarship::class, Company::class, );
+    }
 }
