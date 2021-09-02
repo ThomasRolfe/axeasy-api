@@ -9,17 +9,13 @@ use App\Models\Scholarship;
 use App\Repositories\ScholarshipRepository;
 use App\Services\Scholarships\ScholarshipService;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 
 class ScholarshipController extends Controller
 {
-    protected $scholarshipRepository;
-    protected $scholarshipService;
-
-    public function __construct(ScholarshipRepository $scholarshipRepository, ScholarshipService $scholarshipService)
-    {
-        $this->scholarshipRepository = $scholarshipRepository;
-        $this->scholarshipService = $scholarshipService;
+    public function __construct(
+        protected ScholarshipRepository $scholarshipRepository,
+        protected ScholarshipService $scholarshipService
+    ) {
     }
 
     public function index()
@@ -48,7 +44,7 @@ class ScholarshipController extends Controller
     {
         try {
             $scholarship = $this->scholarshipService->createScholarship($request->validated());
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
 
