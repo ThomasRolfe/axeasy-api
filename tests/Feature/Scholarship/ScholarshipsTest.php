@@ -108,7 +108,7 @@ class ScholarshipsTest extends TestCase
         $company = Company::factory()->create();
         $user->company()->associate($company)->save();
         $user->fresh();
-        
+
         $response = $this->actingAs($user)
             ->get('/api/scholarships');
 

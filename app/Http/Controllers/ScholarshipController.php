@@ -55,5 +55,4 @@ class ScholarshipController extends Controller
         return ScholarshipResource::make($scholarship);
     }
 
-
 }
