@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ScholarshipController extends Controller
 {
-
     protected $scholarshipRepository;
     protected $scholarshipService;
 
@@ -33,7 +32,7 @@ class ScholarshipController extends Controller
     {
         $scholarship = $this->scholarshipRepository->find($id);
 
-        if (!$scholarship) {
+        if (!$scholarship || Auth::user()->cannot('view', $scholarship)) {
             abort(404, 'Scholarship not found');
         }
 

@@ -31,7 +31,11 @@ class ScholarshipPolicy
      */
     public function view(User $user, Scholarship $scholarship)
     {
-        //
+        if(!$user->company) {
+            return false;
+        }
+
+        return $user->company->scholarships->contains($scholarship);
     }
 
     /**

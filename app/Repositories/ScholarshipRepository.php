@@ -17,10 +17,6 @@ class ScholarshipRepository implements EloquentRepositoryInterface
 
     public function find($id): ?Model
     {
-        if (!Auth::user()->company) {
-            return null;
-        }
-
         return Auth::user()->company->scholarships->where('id', '=', $id)->first();
     }
 
