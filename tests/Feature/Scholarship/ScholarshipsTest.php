@@ -105,7 +105,10 @@ class ScholarshipsTest extends TestCase
     public function test_user_with_no_scholarships_gets_empty_array()
     {
         $user = User::factory()->create();
-
+        $company = Company::factory()->create();
+        $user->company()->associate($company)->save();
+        $user->fresh();
+        
         $response = $this->actingAs($user)
             ->get('/api/scholarships');
 

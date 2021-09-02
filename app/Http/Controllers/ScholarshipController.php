@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateScholarshipRequest;
 use App\Http\Resources\ScholarshipCollection;
 use App\Http\Resources\ScholarshipResource;
+use App\Models\Scholarship;
 use App\Repositories\ScholarshipRepository;
 use App\Services\Scholarships\ScholarshipService;
 use Exception;
@@ -23,6 +24,8 @@ class ScholarshipController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Scholarship::class);
+
         $scholarships = $this->scholarshipRepository->all();
 
         return new ScholarshipCollection($scholarships);
@@ -32,9 +35,11 @@ class ScholarshipController extends Controller
     {
         $scholarship = $this->scholarshipRepository->find($id);
 
-        if (!$scholarship || Auth::user()->cannot('view', $scholarship)) {
+        if (!$scholarship) {
             abort(404, 'Scholarship not found');
         }
+
+        $this->authorize('view', $scholarship);
 
         return ScholarshipResource::make($scholarship);
     }

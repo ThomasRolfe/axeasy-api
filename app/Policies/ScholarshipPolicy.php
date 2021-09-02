@@ -19,7 +19,11 @@ class ScholarshipPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        if(!$user->company) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
