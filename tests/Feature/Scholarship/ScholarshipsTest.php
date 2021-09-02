@@ -165,7 +165,6 @@ class ScholarshipsTest extends TestCase
     {
         $user = User::factory()->create();
         $company = Company::factory()->create();
-        $scholarship = Scholarship::factory()->create();
 
         $user->company()->associate($company)->save();
         $user->fresh();
@@ -187,8 +186,27 @@ class ScholarshipsTest extends TestCase
         $response->assertJsonPath('data.start_date', $data['start_date']);
 
         $this->assertDatabaseHas('scholarships', [
-            'id' => $data['id'],
+            'monthly_slp_target' => $data['monthly_slp_target'],
+            'scholar_split' => $data['scholar_split'],
             'label' => $data['label']
         ]);
+    }
+
+    public function test_user_cannot_create_a_scholarship_without_a_company_through_endpoint()
+    {
+        $user = User::factory()->create();
+
+        $data = [
+            'label' => $this->faker->name,
+            'start_date' => $this->faker->date,
+            'monthly_slp_target' => $this->faker->numberBetween(1000, 5000),
+            'scholar_split' => ($this->faker->numberBetween(0, 100) / 100),
+            'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/api/scholarships/', $data);
+
+        $response->assertStatus(403);
     }
 }

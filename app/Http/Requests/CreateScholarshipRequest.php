@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Scholarship;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateScholarshipRequest extends FormRequest
@@ -13,7 +14,7 @@ class CreateScholarshipRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('create', Scholarship::class);
     }
 
     /**
@@ -24,7 +25,10 @@ class CreateScholarshipRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'label' => 'required|string',
+            'start_date' => 'nullable|date',
+            'monthly_slp_target' => 'nullable|integer',
+            'scholar_split' => 'nullable|numeric|max:1|min:0',
         ];
     }
 }
