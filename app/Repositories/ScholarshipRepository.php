@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class ScholarshipRepository implements EloquentRepositoryInterface
+class ScholarshipRepository implements EloquentRepositoryInterface, CreatesModelInterface
 {
 
     public function create(array $attributes): ?Model
