@@ -2,17 +2,15 @@
 
 namespace Tests\Feature\Scholarship;
 
-use App\Exceptions\UserCompanyNotFoundException;
 use App\Models\Company;
 use App\Models\Scholarship;
 use App\Models\User;
-use App\Services\Scholarships\ScholarshipService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class ScholarshipsTest extends TestCase
+class ScholarshipEndpointTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -28,7 +26,7 @@ class ScholarshipsTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_their_related_scholarship_by_id()
+    public function test_endpoint_user_can_view_their_related_scholarship_by_id()
     {
         $user = User::factory()->create();
         $company = Company::factory()->create();
@@ -46,7 +44,7 @@ class ScholarshipsTest extends TestCase
         $response->assertJsonPath('data.id', $scholarship->id);
     }
 
-    public function test_user_can_view_an_index_of_their_related_scholarships()
+    public function test_endpoint_user_can_view_an_index_of_their_related_scholarships()
     {
         $user = User::factory()->create();
         $company = Company::factory()->create();
@@ -87,7 +85,7 @@ class ScholarshipsTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_view_an_unrelated_scholarship()
+    public function test_endpoint_user_can_not_view_an_unrelated_scholarship()
     {
         $user = User::factory()->create();
         $company = Company::factory()->create();
@@ -102,7 +100,7 @@ class ScholarshipsTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_user_with_no_scholarships_gets_empty_array()
+    public function test_endpoint_user_with_no_scholarships_gets_empty_array()
     {
         $user = User::factory()->create();
         $company = Company::factory()->create();
@@ -119,52 +117,7 @@ class ScholarshipsTest extends TestCase
         ]);
     }
 
-    public function test_scholarship_can_be_created_from_service_with_valid_user_and_company()
-    {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
-        $user->company()->associate($company)->save();
-
-        $this->actingAs($user);
-
-        $scholarshipService = $this->app->make(ScholarshipService::class);
-
-        $scholarship = $scholarshipService->createScholarship([
-            'label' => $this->faker->name,
-            'start_date' => $this->faker->date,
-            'monthly_slp_target' => $this->faker->numberBetween(1000, 5000),
-            'scholar_split' => ($this->faker->numberBetween(0, 100) / 100),
-            'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
-        ]);
-
-        $this->assertDatabaseHas('scholarships', [
-            'id' => $scholarship->id,
-            'label' => $scholarship->label,
-            'company_id' => $company->id
-        ]);
-
-        $this->assertTrue($scholarship->company->users->contains('id', $user->id));
-    }
-
-    public function test_user_can_not_create_scholarship_without_a_company()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $scholarshipService = $this->app->make(ScholarshipService::class);
-
-        $this->expectException(UserCompanyNotFoundException::class);
-
-        $scholarshipService->createScholarship([
-            'label' => $this->faker->name,
-            'start_date' => $this->faker->date,
-            'monthly_slp_target' => $this->faker->numberBetween(1000, 5000),
-            'scholar_split' => ($this->faker->numberBetween(0, 100) / 100),
-            'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
-        ]);
-    }
-
-    public function test_user_can_create_scholarship_through_endpoint()
+    public function test_endpoint_user_can_create_scholarship()
     {
         $user = User::factory()->create();
         $company = Company::factory()->create();
@@ -195,7 +148,7 @@ class ScholarshipsTest extends TestCase
         ]);
     }
 
-    public function test_user_cannot_create_a_scholarship_without_a_company_through_endpoint()
+    public function test_endpoint_user_cannot_create_a_scholarship_without_a_company()
     {
         $user = User::factory()->create();
 

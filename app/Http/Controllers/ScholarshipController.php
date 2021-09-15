@@ -6,15 +6,15 @@ use App\Http\Requests\CreateScholarshipRequest;
 use App\Http\Resources\ScholarshipCollection;
 use App\Http\Resources\ScholarshipResource;
 use App\Models\Scholarship;
-use App\Repositories\ScholarshipRepository;
-use App\Services\Scholarships\ScholarshipService;
+use App\Repositories\Scholarship\ScholarshipRepositoryInterface;
+use App\Services\Scholarships\ScholarshipServiceInterface;
 use Exception;
 
 class ScholarshipController extends Controller
 {
     public function __construct(
-        protected ScholarshipRepository $scholarshipRepository,
-        protected ScholarshipService $scholarshipService
+        protected ScholarshipRepositoryInterface $scholarshipRepository,
+        protected ScholarshipServiceInterface $scholarshipService
     ) {
     }
 
@@ -43,7 +43,7 @@ class ScholarshipController extends Controller
     public function create(CreateScholarshipRequest $request)
     {
         try {
-            $scholarship = $this->scholarshipService->createScholarship($request->validated());
+            $scholarship = $this->scholarshipService->create($request->validated());
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }

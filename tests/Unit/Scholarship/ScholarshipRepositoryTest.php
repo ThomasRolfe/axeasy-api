@@ -2,21 +2,20 @@
 
 namespace Tests\Unit\Scholarship;
 
-use App\Models\Company;
-use App\Models\User;
+use App\Repositories\Scholarship\ScholarshipRepositoryInterface;
 use App\Repositories\ScholarshipRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ScholarshipCreationTest extends TestCase
+class ScholarshipRepositoryTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
 
     public function test_scholarship_can_be_created_from_repository()
     {
-        $scholarshipRepository = new ScholarshipRepository();
+        $scholarshipRepository = $this->app->make(ScholarshipRepositoryInterface::class);
 
         $scholarship = $scholarshipRepository->create([
             'label' => $this->faker->name,
@@ -31,6 +30,4 @@ class ScholarshipCreationTest extends TestCase
             'id' => $scholarship->id
         ]);
     }
-
-
 }
