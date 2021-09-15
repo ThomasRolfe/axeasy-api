@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Scholarship;
+use App\Models\Scholarship\Scholarship;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ScholarshipFactory extends Factory

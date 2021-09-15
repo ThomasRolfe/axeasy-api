@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\User;
 
-use App\Models\User;
+use App\Models\User\User;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;

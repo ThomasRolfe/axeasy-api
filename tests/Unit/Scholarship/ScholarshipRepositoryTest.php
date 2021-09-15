@@ -3,7 +3,6 @@
 namespace Tests\Unit\Scholarship;
 
 use App\Repositories\Scholarship\ScholarshipRepositoryInterface;
-use App\Repositories\ScholarshipRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

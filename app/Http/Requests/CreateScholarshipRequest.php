@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Scholarship;
+use App\Models\Scholarship\Scholarship;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateScholarshipRequest extends FormRequest

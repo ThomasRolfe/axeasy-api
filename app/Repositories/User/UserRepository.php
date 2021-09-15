@@ -2,7 +2,7 @@
 
 namespace App\Repositories\User;
 
-use App\Models\User;
+use App\Models\User\User;
 use App\Repositories\BaseRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;

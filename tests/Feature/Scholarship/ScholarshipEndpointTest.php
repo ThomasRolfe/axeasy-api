@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Scholarship;
 
-use App\Models\Company;
-use App\Models\Scholarship;
-use App\Models\User;
+use App\Models\Company\Company;
+use App\Models\Scholarship\Scholarship;
+use App\Models\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;

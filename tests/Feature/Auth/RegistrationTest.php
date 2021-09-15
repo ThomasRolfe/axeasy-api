@@ -63,7 +63,7 @@ class RegistrationTest extends TestCase
 
         $response->assertStatus(422);
 
-        $this->assertDatabaseMissing('Users', [
+        $this->assertDatabaseMissing('users', [
             'email' => $email,
             'name' => $name,
             'email_verified_at' => null

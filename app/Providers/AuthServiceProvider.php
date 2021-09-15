@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Scholarship;
+use App\Models\Scholarship\Scholarship;
 use App\Policies\ScholarshipPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;

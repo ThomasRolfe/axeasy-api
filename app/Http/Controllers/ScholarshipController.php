@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateScholarshipRequest;
 use App\Http\Resources\ScholarshipCollection;
 use App\Http\Resources\ScholarshipResource;
-use App\Models\Scholarship;
-use App\Repositories\Scholarship\ScholarshipRepositoryInterface;
+use App\Models\Scholarship\Scholarship;
 use App\Services\Scholarships\ScholarshipServiceInterface;
+use App\Services\Users\UserServiceInterface;
 use Exception;
 
 class ScholarshipController extends Controller
 {
     public function __construct(
-        protected ScholarshipRepositoryInterface $scholarshipRepository,
-        protected ScholarshipServiceInterface $scholarshipService
+        protected ScholarshipServiceInterface $scholarshipService,
+        protected UserServiceInterface $userService
     ) {
     }
 
@@ -22,14 +22,14 @@ class ScholarshipController extends Controller
     {
         $this->authorize('viewAny', Scholarship::class);
 
-        $scholarships = $this->scholarshipRepository->all();
+        $scholarships = $this->scholarshipService->all();
 
         return new ScholarshipCollection($scholarships);
     }
 
     public function show($id)
     {
-        $scholarship = $this->scholarshipRepository->find($id);
+        $scholarship = $this->scholarshipService->find($id);
 
         if (!$scholarship) {
             abort(404, 'Scholarship not found');
@@ -42,8 +42,10 @@ class ScholarshipController extends Controller
 
     public function create(CreateScholarshipRequest $request)
     {
+        $this->authorize('create', Scholarship::class);
+
         try {
-            $scholarship = $this->scholarshipService->create($request->validated());
+            $scholarship = $this->scholarshipService->create($this->userService->authed(), $request->validated());
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
