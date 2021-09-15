@@ -36,6 +36,15 @@ class UserRepositoryTest extends TestCase
         $this->assertTrue($user->is($data));
     }
 
+    public function test_user_repository_returns_all_users()
+    {
+        $users = User::factory()->count(5)->create();
 
+        $repository = $this->app->make(UserRepositoryInterface::class);
+
+        $data = $repository->all();
+
+        $this->assertEqualsCanonicalizing($users->pluck('name'), $data->pluck('name'));
+    }
 
 }
