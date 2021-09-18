@@ -18,8 +18,6 @@ class CreateScholarshipsTable extends Migration
             $table->unsignedBigInteger('company_id')->nullable()->index();
             $table->text('label')->nullable();
             $table->dateTime('start_date')->nullable();
-            $table->integer('monthly_slp_target')->nullable();
-            $table->decimal('scholar_split')->default(0);
             $table->text('encoded_id')->nullable();
             $table->timestamps();
         });

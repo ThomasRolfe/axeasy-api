@@ -26,9 +26,7 @@ class CreateScholarshipRequest extends FormRequest
     {
         return [
             'label' => 'required|string',
-            'start_date' => 'nullable|date',
-            'monthly_slp_target' => 'nullable|integer',
-            'scholar_split' => 'nullable|numeric|max:1|min:0',
+            'start_date' => 'nullable|date'
         ];
     }
 }

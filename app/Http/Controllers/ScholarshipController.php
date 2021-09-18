@@ -42,11 +42,10 @@ class ScholarshipController extends Controller
 
     public function create(CreateScholarshipRequest $request)
     {
-        $this->authorize('create', Scholarship::class);
-
-        $currentUser = $this->userService->authed();
-
-        $scholarship = $this->scholarshipService->create($currentUser->company, $request->validated());
+        $scholarship = $this->scholarshipService->create(
+            $this->userService->authed()->company,
+            $request->validated()
+        );
 
         return ScholarshipResource::make($scholarship);
     }

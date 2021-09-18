@@ -19,8 +19,6 @@ class ScholarshipRepositoryTest extends TestCase
         $scholarship = $scholarshipRepository->create([
             'label' => $this->faker->name,
             'start_date' => $this->faker->date,
-            'monthly_slp_target' => $this->faker->numberBetween(1000, 5000),
-            'scholar_split' => ($this->faker->numberBetween(0, 100) / 100),
             'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
         ]);
 

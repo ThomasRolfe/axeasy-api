@@ -74,8 +74,6 @@ class ScholarshipEndpointTest extends TestCase
                 '*' => [
                     'label',
                     'start_date',
-                    'monthly_slp_target',
-                    'scholar_split',
                     'encoded_id',
                     'id',
                     'created_at',
@@ -128,8 +126,6 @@ class ScholarshipEndpointTest extends TestCase
         $data = [
             'label' => $this->faker->name,
             'start_date' => $this->faker->date,
-            'monthly_slp_target' => $this->faker->numberBetween(1000, 5000),
-            'scholar_split' => ($this->faker->numberBetween(0, 100) / 100),
             'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
         ];
 
@@ -142,8 +138,6 @@ class ScholarshipEndpointTest extends TestCase
         $response->assertJsonPath('data.start_date', $data['start_date']);
 
         $this->assertDatabaseHas('scholarships', [
-            'monthly_slp_target' => $data['monthly_slp_target'],
-            'scholar_split' => $data['scholar_split'],
             'label' => $data['label']
         ]);
     }
@@ -155,8 +149,6 @@ class ScholarshipEndpointTest extends TestCase
         $data = [
             'label' => $this->faker->name,
             'start_date' => $this->faker->date,
-            'monthly_slp_target' => $this->faker->numberBetween(1000, 5000),
-            'scholar_split' => ($this->faker->numberBetween(0, 100) / 100),
             'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
         ];
 
@@ -164,5 +156,26 @@ class ScholarshipEndpointTest extends TestCase
             ->post('/api/scholarships/', $data);
 
         $response->assertStatus(403);
+    }
+
+    public function test_endpoint_scholarship_cannot_be_created_with_invalid_attributes()
+    {
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
+
+        $user->company()->associate($company)->save();
+        $user->fresh();
+
+        $data = [
+            'wrong_value_1' => '',
+            'start_date' => 'some text not a date'
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/api/scholarships/', $data);
+
+        $response->assertStatus(422);
+
+        $response->assertJsonValidationErrors(['label', 'start_date',]);
     }
 }
