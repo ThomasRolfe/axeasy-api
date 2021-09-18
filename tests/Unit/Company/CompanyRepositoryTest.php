@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Company;
 
-use App\Models\Company\Company;
 use App\Models\Company\CompanyInterface;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,7 +33,6 @@ class CompanyRepositoryTest extends TestCase
         $loadedCompany = $repository->find($company->id);
 
         $this->assertTrue($company->is($loadedCompany));
-
     }
 
     public function test_repository_can_list_all_companies()
@@ -42,5 +40,10 @@ class CompanyRepositoryTest extends TestCase
         $companies = $this->app->make(CompanyInterface::class)::factory()->count(5)->create();
         $repository = $this->app->make(CompanyRepositoryInterface::class);
 
+        $loadedCompanies = $repository->all();
+
+        foreach($companies as $company) {
+            $this->assertTrue($loadedCompanies->contains($company));
+        }
     }
 }
