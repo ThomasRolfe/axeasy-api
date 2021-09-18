@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Scholarship;
 
-use App\Models\User\User;
+use App\Models\User\UserInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ScholarshipRepositoryInterface
 {
-    public function allAuthed(User $user): ?Collection;
+    public function allByUser(UserInterface $user): ?Collection;
 }

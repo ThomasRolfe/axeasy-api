@@ -2,10 +2,10 @@
 
 namespace App\Services\Scholarships;
 
-use App\Models\User\User;
+use App\Models\User\UserInterface;
 use Illuminate\Database\Eloquent\Model;
 
 interface ScholarshipServiceInterface
 {
-    public function create(User $user, array $attributes): ?Model;
+    public function create(UserInterface $user, array $attributes): ?Model;
 }

@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Scholarship;
 
-use App\Models\Scholarship\Scholarship;
-use App\Models\User\User;
+use App\Models\Scholarship\ScholarshipInterface;
+use App\Models\User\UserInterface;
 use App\Repositories\BaseRepository;
 use App\Repositories\CreatesModelInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,23 +11,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ScholarshipRepository extends BaseRepository implements ScholarshipRepositoryInterface, CreatesModelInterface
 {
-    public function __construct(Scholarship $model)
+    public function __construct(ScholarshipInterface $model)
     {
         parent::__construct($model);
     }
 
     public function create(array $attributes): ?Model
     {
-        return Scholarship::create($attributes);
+        return $this->model::create($attributes);
     }
 
-    public function allAuthed(User $user): Collection
+    public function allByUser(UserInterface $user): Collection
     {
         return $user->company->scholarships;
-    }
-
-    public function all(): Collection
-    {
-        return Scholarship::all();
     }
 }

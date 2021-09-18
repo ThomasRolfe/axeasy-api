@@ -7,7 +7,7 @@ use Database\Factories\ScholarshipFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Scholarship extends Model
+class Scholarship extends Model implements ScholarshipInterface
 {
     use HasFactory;
 
