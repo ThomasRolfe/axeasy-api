@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\User;
 
-use App\Models\User\User;
-use App\Repositories\User\UserRepository;
+use App\Models\User\UserInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,7 +15,7 @@ class UserRepositoryTest extends TestCase
 
     public function test_user_repository_returns_current_user_data()
     {
-        $user = User::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
 
         $this->actingAs($user);
 
@@ -28,7 +27,7 @@ class UserRepositoryTest extends TestCase
 
     public function test_user_repository_finds_individual_user()
     {
-        $user = User::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
 
         $repository = $this->app->make(UserRepositoryInterface::class);
         $data = $repository->find($user->id);
@@ -38,7 +37,7 @@ class UserRepositoryTest extends TestCase
 
     public function test_user_repository_returns_all_users()
     {
-        $users = User::factory()->count(5)->create();
+        $users = $this->app->make(UserInterface::class)::factory()->count(5)->create();
 
         $repository = $this->app->make(UserRepositoryInterface::class);
 

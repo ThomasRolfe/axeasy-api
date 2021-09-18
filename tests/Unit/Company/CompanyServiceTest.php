@@ -6,6 +6,7 @@ use App\Exceptions\UserCompanyAlreadyExistsException;
 use App\Models\Company\Company;
 use App\Models\Company\CompanyInterface;
 use App\Models\User\User;
+use App\Models\User\UserInterface;
 use App\Services\Company\CompanyServiceInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,7 +19,7 @@ class CompanyServiceTest extends TestCase
 
     public function test_service_company_can_be_created()
     {
-        $user = User::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
         $companyService = $this->app->make(CompanyServiceInterface::class);
 
         $data = ['label' => $this->faker->company];
@@ -33,8 +34,8 @@ class CompanyServiceTest extends TestCase
     {
         $companyService = $this->app->make(CompanyServiceInterface::class);
 
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
         $user->company()->associate($company);
 
         $this->expectException(UserCompanyAlreadyExistsException::class);
@@ -46,7 +47,7 @@ class CompanyServiceTest extends TestCase
     {
         $companyService = $this->app->make(CompanyServiceInterface::class);
 
-        $user = User::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
 
         $data = ['label' => $this->faker->company];
 
@@ -54,7 +55,6 @@ class CompanyServiceTest extends TestCase
 
         $user = $user->fresh();
 
-        dump($user->company);
         $this->assertNotNull($user->company);
         $this->assertEquals($data['label'], $user->company->label);
     }

@@ -3,8 +3,8 @@
 namespace Tests\Unit\Scholarship;
 
 use App\Exceptions\UserCompanyNotFoundException;
-use App\Models\Company\Company;
-use App\Models\User\User;
+use App\Models\Company\CompanyInterface;
+use App\Models\User\UserInterface;
 use App\Services\Scholarships\ScholarshipServiceInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -25,8 +25,8 @@ class ScholarshipServiceTest extends TestCase
 
     public function test_service_scholarship_can_be_created_with_valid_user_and_company()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
         $user->company()->associate($company)->save();
 
         $this->actingAs($user);
@@ -50,7 +50,7 @@ class ScholarshipServiceTest extends TestCase
 
     public function test_service_user_can_not_create_scholarship_without_a_company()
     {
-        $user = User::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
         $this->actingAs($user);
 
         $this->expectException(UserCompanyNotFoundException::class);

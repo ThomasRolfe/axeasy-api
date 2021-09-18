@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\User;
 
-use App\Models\Company\Company;
-use App\Models\User\User;
+use App\Models\Company\CompanyInterface;
+use App\Models\User\UserInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -26,8 +26,8 @@ class UserEndpointTest extends TestCase
 
     public function test_endpoint_company_returned_with_user()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
 
         $user->company()->associate($company)->save();
         $user->fresh();

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Scholarship;
 
-use App\Models\Company\Company;
-use App\Models\Scholarship\Scholarship;
-use App\Models\User\User;
+use App\Models\Company\CompanyInterface;
+use App\Models\Scholarship\ScholarshipInterface;
+use App\Models\User\UserInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -28,9 +28,9 @@ class ScholarshipEndpointTest extends TestCase
 
     public function test_endpoint_user_can_view_their_related_scholarship_by_id()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
-        $scholarship = Scholarship::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
+        $scholarship = $this->app->make(ScholarshipInterface::class)::factory()->create();
 
         $user->company()->associate($company)->save();
         $company->scholarships()->save($scholarship)->save();
@@ -46,9 +46,9 @@ class ScholarshipEndpointTest extends TestCase
 
     public function test_endpoint_user_can_view_an_index_of_their_related_scholarships()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
-        $scholarships = Scholarship::factory()->count(5)->make();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
+        $scholarships = $this->app->make(ScholarshipInterface::class)::factory()->count(5)->make();
 
         $user->company()->associate($company)->save();
         $company->scholarships()->saveMany($scholarships);
@@ -87,9 +87,9 @@ class ScholarshipEndpointTest extends TestCase
 
     public function test_endpoint_user_can_not_view_an_unrelated_scholarship()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
-        $scholarship = Scholarship::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
+        $scholarship = $this->app->make(ScholarshipInterface::class)::factory()->create();
 
         $user->company()->associate($company)->save();
         $user->fresh();
@@ -102,8 +102,8 @@ class ScholarshipEndpointTest extends TestCase
 
     public function test_endpoint_user_with_no_scholarships_gets_empty_array()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
         $user->company()->associate($company)->save();
         $user->fresh();
 
@@ -119,8 +119,8 @@ class ScholarshipEndpointTest extends TestCase
 
     public function test_endpoint_user_can_create_scholarship()
     {
-        $user = User::factory()->create();
-        $company = Company::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
 
         $user->company()->associate($company)->save();
         $user->fresh();
@@ -150,7 +150,7 @@ class ScholarshipEndpointTest extends TestCase
 
     public function test_endpoint_user_cannot_create_a_scholarship_without_a_company()
     {
-        $user = User::factory()->create();
+        $user = $this->app->make(UserInterface::class)::factory()->create();
 
         $data = [
             'label' => $this->faker->name,
