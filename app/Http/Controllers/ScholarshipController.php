@@ -22,7 +22,7 @@ class ScholarshipController extends Controller
     {
         $this->authorize('viewAny', Scholarship::class);
 
-        $scholarships = $this->scholarshipService->all();
+        $scholarships = $this->scholarshipService->allByUser();
 
         return new ScholarshipCollection($scholarships);
     }
@@ -44,11 +44,9 @@ class ScholarshipController extends Controller
     {
         $this->authorize('create', Scholarship::class);
 
-        try {
-            $scholarship = $this->scholarshipService->create($this->userService->authed(), $request->validated());
-        } catch (Exception $e) {
-            abort($e->getCode(), $e->getMessage());
-        }
+        $currentUser = $this->userService->authed();
+
+        $scholarship = $this->scholarshipService->create($currentUser->company, $request->validated());
 
         return ScholarshipResource::make($scholarship);
     }

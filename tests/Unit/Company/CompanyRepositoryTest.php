@@ -39,6 +39,8 @@ class CompanyRepositoryTest extends TestCase
 
     public function test_repository_can_list_all_companies()
     {
+        $companies = $this->app->make(CompanyInterface::class)::factory()->count(5)->create();
+        $repository = $this->app->make(CompanyRepositoryInterface::class);
 
     }
 }
