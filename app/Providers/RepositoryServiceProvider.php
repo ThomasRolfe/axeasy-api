@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Company\CompanyRepository;
+use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Repositories\Scholarship\ScholarshipRepository;
 use App\Repositories\Scholarship\ScholarshipRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -19,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(ScholarshipRepositoryInterface::class, ScholarshipRepository::class);
+        $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
     }
 
     /**

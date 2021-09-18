@@ -12,6 +12,8 @@ class Company extends Model implements CompanyInterface
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected static function newFactory()
     {
         return CompanyFactory::new();

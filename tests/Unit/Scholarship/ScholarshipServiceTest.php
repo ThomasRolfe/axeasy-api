@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Scholarship;
+namespace Tests\Unit\Scholarship;
 
 use App\Exceptions\UserCompanyNotFoundException;
 use App\Models\Company\Company;

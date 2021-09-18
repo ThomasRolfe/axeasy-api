@@ -23,4 +23,5 @@ class CompanyEndpointTest extends TestCase
         ]);
     }
 
+
 }

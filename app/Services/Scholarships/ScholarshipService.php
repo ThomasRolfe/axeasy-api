@@ -2,6 +2,7 @@
 
 namespace App\Services\Scholarships;
 
+use App\Events\ScholarshipCreated;
 use App\Exceptions\UserCompanyNotFoundException;
 use App\Models\Scholarship\Scholarship;
 use App\Models\User\User;
@@ -28,7 +29,7 @@ class ScholarshipService implements ScholarshipServiceInterface
 
         $scholarship = $this->scholarshipRepository->create($attributes);
 
-        $user->company->scholarships()->save($scholarship);
+        ScholarshipCreated::dispatch($user->company, $scholarship);
 
         return $scholarship;
     }
