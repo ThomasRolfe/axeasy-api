@@ -6,7 +6,6 @@ use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Services\Company\CompanyServiceInterface;
 use App\Services\Users\UserServiceInterface;
-use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {

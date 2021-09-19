@@ -35,7 +35,14 @@ class UserEndpointTest extends TestCase
         $response = $this->actingAs($user)->get('/api/user');
 
         $response->assertStatus(200);
-
         $response->assertJsonPath('data.company.label', $company->label);
+    }
+
+    public function test_endpoint_unauthed_user_receives_unauthenticated_error()
+    {
+        $response = $this->get('/api/user');
+
+        $response->assertStatus(401);
+        $response->assertSee('Unauthenticated');
     }
 }

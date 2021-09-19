@@ -72,5 +72,15 @@ class CompanyEndpointTest extends TestCase
         $response->assertStatus(403);
     }
 
+    public function test_endpoint_company_cannot_be_created_without_user()
+    {
+        $data = ['label' => $this->faker->company];
+
+        $response = $this->post('/api/companies', $data);
+
+        $response->assertStatus(401);
+        $response->assertSee('Unauthenticated');
+    }
+
 
 }
