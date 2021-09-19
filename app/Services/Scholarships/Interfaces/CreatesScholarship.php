@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Scholarships;
+namespace App\Services\Scholarships\Interfaces;
 
 use App\Models\Company\CompanyInterface;
 use Illuminate\Database\Eloquent\Model;

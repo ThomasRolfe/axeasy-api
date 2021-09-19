@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ScholarshipCreated;
+use App\Services\Scholarships\Interfaces\LinksCompanyToScholarship;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -13,9 +14,9 @@ class LinkScholarshipToCompany
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(protected LinksCompanyToScholarship $scholarshipService)
     {
-        //
+
     }
 
     /**
@@ -26,6 +27,6 @@ class LinkScholarshipToCompany
      */
     public function handle(ScholarshipCreated $event)
     {
-        $event->company->scholarships()->save($event->scholarship);
+        $this->scholarshipService->linkCompanyToScholarship($event->company, $event->scholarship);
     }
 }

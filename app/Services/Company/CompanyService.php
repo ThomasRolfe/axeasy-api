@@ -6,6 +6,7 @@ use App\Events\CompanyCreated;
 use App\Exceptions\UserCompanyAlreadyExistsException;
 use App\Models\User\UserInterface;
 use App\Repositories\Company\CompanyRepositoryInterface;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
 class CompanyService implements CompanyServiceInterface
@@ -14,7 +15,7 @@ class CompanyService implements CompanyServiceInterface
     {
     }
 
-    public function create(UserInterface $user, array $attributes): ?Model
+    public function create(Authenticatable|UserInterface $user, array $attributes): ?Model
     {
         if ($user->company) {
             throw new UserCompanyAlreadyExistsException('User already connected to a company', 422);

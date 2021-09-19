@@ -6,15 +6,15 @@ use App\Http\Requests\CreateScholarshipRequest;
 use App\Http\Resources\ScholarshipCollection;
 use App\Http\Resources\ScholarshipResource;
 use App\Models\Scholarship\Scholarship;
-use App\Services\Scholarships\CreatesScholarship;
-use App\Services\Scholarships\FindsScholarship;
-use App\Services\Scholarships\GetsAllScholarships;
-use App\Services\Users\UserServiceInterface;
+use App\Services\Scholarships\Interfaces\CreatesScholarship;
+use App\Services\Scholarships\Interfaces\FindsScholarship;
+use App\Services\Scholarships\Interfaces\GetsAllScholarships;
+use App\Services\Users\GetsAuthedUser;
 
 class ScholarshipController extends Controller
 {
     public function __construct(
-        protected UserServiceInterface $userService
+        protected GetsAuthedUser $userService
     ) {
     }
 
