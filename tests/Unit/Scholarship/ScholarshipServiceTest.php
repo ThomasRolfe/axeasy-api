@@ -2,11 +2,9 @@
 
 namespace Tests\Unit\Scholarship;
 
-use App\Exceptions\UserCompanyNotFoundException;
 use App\Models\Company\CompanyInterface;
 use App\Models\User\UserInterface;
 use App\Services\Scholarships\CreatesScholarship;
-use App\Services\Scholarships\ScholarshipServiceInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

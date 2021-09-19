@@ -3,10 +3,8 @@
 namespace App\Services\Scholarships;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
-interface ScholarshipServiceInterface
+interface FindsScholarship
 {
-
-
+    public function find($id): ?Model;
 }

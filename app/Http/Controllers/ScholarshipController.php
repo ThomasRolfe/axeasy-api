@@ -7,30 +7,30 @@ use App\Http\Resources\ScholarshipCollection;
 use App\Http\Resources\ScholarshipResource;
 use App\Models\Scholarship\Scholarship;
 use App\Services\Scholarships\CreatesScholarship;
-use App\Services\Scholarships\ScholarshipServiceInterface;
+use App\Services\Scholarships\FindsScholarship;
+use App\Services\Scholarships\GetsAllScholarships;
 use App\Services\Users\UserServiceInterface;
-use Exception;
 
 class ScholarshipController extends Controller
 {
     public function __construct(
-        protected ScholarshipServiceInterface $scholarshipService,
         protected UserServiceInterface $userService
     ) {
     }
 
-    public function index()
+    public function index(GetsAllScholarships $scholarshipService)
     {
         $this->authorize('viewAny', Scholarship::class);
 
-        $scholarships = $this->scholarshipService->allByUser();
+        $user = $this->userService->authed();
+        $scholarships = $scholarshipService->allByUser($user);
 
         return new ScholarshipCollection($scholarships);
     }
 
-    public function show($id)
+    public function show($id, FindsScholarship $scholarshipService)
     {
-        $scholarship = $this->scholarshipService->find($id);
+        $scholarship = $scholarshipService->find($id);
 
         if (!$scholarship) {
             abort(404, 'Scholarship not found');

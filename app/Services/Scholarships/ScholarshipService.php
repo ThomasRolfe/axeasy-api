@@ -4,12 +4,13 @@ namespace App\Services\Scholarships;
 
 use App\Events\ScholarshipCreated;
 use App\Models\Company\CompanyInterface;
+use App\Models\User\UserInterface;
 use App\Repositories\Scholarship\ScholarshipRepositoryInterface;
 use App\Services\Users\UserServiceInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class ScholarshipService implements ScholarshipServiceInterface, CreatesScholarship
+class ScholarshipService implements CreatesScholarship, FindsScholarship, GetsAllScholarships
 {
     public function __construct(
         protected ScholarshipRepositoryInterface $scholarshipRepository,
@@ -26,14 +27,14 @@ class ScholarshipService implements ScholarshipServiceInterface, CreatesScholars
         return $scholarship;
     }
 
-    public function allByCompany(): ?Collection
+    public function allByCompany(CompanyInterface $company): ?Collection
     {
-        return $this->scholarshipRepository->allByCompany($this->userService->authed()->company);
+        return $this->scholarshipRepository->allByCompany($company);
     }
 
-    public function allByUser(): ?Collection
+    public function allByUser(UserInterface $user): ?Collection
     {
-        return $this->scholarshipRepository->allByUser($this->userService->authed());
+        return $this->scholarshipRepository->allByUser($user);
     }
 
     public function find($id): ?Model
