@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Company;
 
-use App\Models\Company;
 use App\Models\Company\CompanyInterface;
-use App\Models\Scholarship\ScholarshipInterface;
 use App\Models\User\UserInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
