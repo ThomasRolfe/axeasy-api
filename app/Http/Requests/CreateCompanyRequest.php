@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Scholarship\Scholarship;
-use App\Models\Scholarship\ScholarshipInterface;
+use App\Models\Company\CompanyInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateScholarshipRequest extends FormRequest
+class CreateCompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,7 @@ class CreateScholarshipRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('create', app()->make(ScholarshipInterface::class));
+        return $this->user()->can('create', app()->make(CompanyInterface::Class));
     }
 
     /**
@@ -26,8 +25,7 @@ class CreateScholarshipRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required|string',
-            'start_date' => 'nullable|date'
+            'label' => 'required|string'
         ];
     }
 }
