@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Services\Company\Interfaces\CreatesCompany;
-use App\Services\Users\GetsAuthedUser;
+use App\Services\Users\Interfaces\GetsAuthedUser;
 
 class CompanyController extends Controller
 {

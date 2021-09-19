@@ -11,7 +11,7 @@ use App\Services\Scholarships\Interfaces\CreatesScholarship;
 use App\Services\Scholarships\Interfaces\FindsScholarship;
 use App\Services\Scholarships\Interfaces\GetsAllScholarships;
 use App\Services\Scholarships\Interfaces\LinksCompanyToScholarship;
-use App\Services\Users\GetsAuthedUser;
+use App\Services\Users\Interfaces\GetsAuthedUser;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

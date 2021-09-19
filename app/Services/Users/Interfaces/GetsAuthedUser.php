@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Users;
+namespace App\Services\Users\Interfaces;
 
 use App\Models\User\UserInterface;
 use Illuminate\Contracts\Auth\Authenticatable;

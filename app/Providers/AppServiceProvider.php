@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Services\Company\CompanyService;
-use App\Services\Company\CompanyServiceInterface;
 use App\Services\Company\Interfaces\CreatesCompany;
 use App\Services\Company\Interfaces\LinksUserToCompany;
 use App\Services\Scholarships\Interfaces\CreatesScholarship;
@@ -11,7 +10,7 @@ use App\Services\Scholarships\Interfaces\FindsScholarship;
 use App\Services\Scholarships\Interfaces\GetsAllScholarships;
 use App\Services\Scholarships\Interfaces\LinksCompanyToScholarship;
 use App\Services\Scholarships\ScholarshipService;
-use App\Services\Users\GetsAuthedUser;
+use App\Services\Users\Interfaces\GetsAuthedUser;
 use App\Services\Users\UserService;
 use Illuminate\Support\ServiceProvider;
 

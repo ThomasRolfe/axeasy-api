@@ -9,7 +9,7 @@ use App\Models\Scholarship\Scholarship;
 use App\Services\Scholarships\Interfaces\CreatesScholarship;
 use App\Services\Scholarships\Interfaces\FindsScholarship;
 use App\Services\Scholarships\Interfaces\GetsAllScholarships;
-use App\Services\Users\GetsAuthedUser;
+use App\Services\Users\Interfaces\GetsAuthedUser;
 
 class ScholarshipController extends Controller
 {

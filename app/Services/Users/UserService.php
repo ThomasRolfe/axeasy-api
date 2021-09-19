@@ -2,6 +2,7 @@
 
 namespace App\Services\Users;
 
+use App\Services\Users\Interfaces\GetsAuthedUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Models\User\UserInterface;

@@ -75,6 +75,19 @@ class CompanyServiceTest extends TestCase
     {
         $user = $this->app->make(UserInterface::class)::factory()->create();
         $company = $this->app->make(CompanyInterface::class)::factory()->create();
+        $linksCompanyService = $this->app->make(LinksUserToCompany::class);
+
+        $linksCompanyService->linkUserToCompany($user, $company);
+
+        $user->fresh();
+
+        $this->assertEquals($company->label, $user->company->label);
+    }
+
+    public function test_service_user_cannot_be_linked_to_company_when_already_linked()
+    {
+        $user = $this->app->make(UserInterface::class)::factory()->create();
+        $company = $this->app->make(CompanyInterface::class)::factory()->create();
         $newCompany = $this->app->make(CompanyInterface::class)::factory()->create();
         $linksCompanyService = $this->app->make(LinksUserToCompany::class);
 
@@ -83,9 +96,5 @@ class CompanyServiceTest extends TestCase
         $this->expectException(UserCompanyAlreadyExistsException::class);
 
         $linksCompanyService->linkUserToCompany($user, $newCompany);
-    }
-
-    public function test_service_user_cannot_be_linked_to_company_when_already_linked()
-    {
     }
 }

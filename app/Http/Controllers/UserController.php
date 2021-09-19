@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
-use App\Services\Users\GetsAuthedUser;
-use App\Services\Users\UserServiceInterface;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Services\Users\Interfaces\GetsAuthedUser;
 
 class UserController extends Controller
 {
