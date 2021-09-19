@@ -4,12 +4,15 @@ namespace App\Services\Company;
 
 use App\Events\CompanyCreated;
 use App\Exceptions\UserCompanyAlreadyExistsException;
+use App\Models\Company\CompanyInterface;
 use App\Models\User\UserInterface;
 use App\Repositories\Company\CompanyRepositoryInterface;
+use App\Services\Company\Interfaces\CreatesCompany;
+use App\Services\Company\Interfaces\LinksUserToCompany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class CompanyService implements CompanyServiceInterface
+class CompanyService implements CreatesCompany, LinksUserToCompany
 {
     public function __construct(protected CompanyRepositoryInterface $companyRepository)
     {
@@ -26,5 +29,14 @@ class CompanyService implements CompanyServiceInterface
         CompanyCreated::dispatch($user, $company);
 
         return $company;
+    }
+
+    public function linkUserToCompany(UserInterface $user, CompanyInterface $company)
+    {
+        if($user->company) {
+            throw new UserCompanyAlreadyExistsException('User already connected to a company', 422);
+        }
+
+        $user->company()->associate($company)->save();
     }
 }

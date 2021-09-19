@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Company\CompanyService;
 use App\Services\Company\CompanyServiceInterface;
+use App\Services\Company\Interfaces\CreatesCompany;
+use App\Services\Company\Interfaces\LinksUserToCompany;
 use App\Services\Scholarships\Interfaces\CreatesScholarship;
 use App\Services\Scholarships\Interfaces\FindsScholarship;
 use App\Services\Scholarships\Interfaces\GetsAllScholarships;
@@ -28,8 +30,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LinksCompanyToScholarship::class, ScholarshipService::class);
 
         $this->app->bind(GetsAuthedUser::class, UserService::class);
-        
-        $this->app->bind(CompanyServiceInterface::class, CompanyService::class);
+
+        $this->app->bind(CreatesCompany::class, CompanyService::class);
+        $this->app->bind(LinksUserToCompany::class, CompanyService::class);
     }
 
     /**

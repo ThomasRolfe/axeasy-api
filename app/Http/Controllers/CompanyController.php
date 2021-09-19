@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Resources\CompanyResource;
-use App\Services\Company\CompanyServiceInterface;
+use App\Services\Company\Interfaces\CreatesCompany;
 use App\Services\Users\GetsAuthedUser;
-use App\Services\Users\UserServiceInterface;
 
 class CompanyController extends Controller
 {
     public function __construct(
-        protected CompanyServiceInterface $companyService,
+        protected CreatesCompany $companyService,
         protected GetsAuthedUser $getsAuthedUserService
     ) {
     }
