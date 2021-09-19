@@ -9,7 +9,7 @@ use App\Services\Users\UserServiceInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class ScholarshipService implements ScholarshipServiceInterface
+class ScholarshipService implements ScholarshipServiceInterface, CreatesScholarship
 {
     public function __construct(
         protected ScholarshipRepositoryInterface $scholarshipRepository,

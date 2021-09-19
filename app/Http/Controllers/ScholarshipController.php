@@ -6,6 +6,7 @@ use App\Http\Requests\CreateScholarshipRequest;
 use App\Http\Resources\ScholarshipCollection;
 use App\Http\Resources\ScholarshipResource;
 use App\Models\Scholarship\Scholarship;
+use App\Services\Scholarships\CreatesScholarship;
 use App\Services\Scholarships\ScholarshipServiceInterface;
 use App\Services\Users\UserServiceInterface;
 use Exception;
@@ -40,9 +41,9 @@ class ScholarshipController extends Controller
         return ScholarshipResource::make($scholarship);
     }
 
-    public function create(CreateScholarshipRequest $request)
+    public function create(CreateScholarshipRequest $request, CreatesScholarship $scholarshipService)
     {
-        $scholarship = $this->scholarshipService->create(
+        $scholarship = $scholarshipService->create(
             $this->userService->authed()->company,
             $request->validated()
         );

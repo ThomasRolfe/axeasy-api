@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Company\CompanyService;
 use App\Services\Company\CompanyServiceInterface;
+use App\Services\Scholarships\CreatesScholarship;
 use App\Services\Scholarships\ScholarshipService;
 use App\Services\Scholarships\ScholarshipServiceInterface;
 use App\Services\Users\UserService;
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ScholarshipServiceInterface::class, ScholarshipService::class);
+        $this->app->bind(CreatesScholarship::class, ScholarshipService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(CompanyServiceInterface::class, CompanyService::class);
     }

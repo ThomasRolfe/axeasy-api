@@ -5,6 +5,7 @@ namespace Tests\Unit\Scholarship;
 use App\Exceptions\UserCompanyNotFoundException;
 use App\Models\Company\CompanyInterface;
 use App\Models\User\UserInterface;
+use App\Services\Scholarships\CreatesScholarship;
 use App\Services\Scholarships\ScholarshipServiceInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,12 +16,9 @@ class ScholarshipServiceTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $scholarshipService;
-
     public function setUp(): void
     {
         parent::setUp();
-        $this->scholarshipService = $this->app->make(ScholarshipServiceInterface::class);
     }
 
     public function test_service_scholarship_can_be_created_with_valid_user_and_company()
@@ -31,7 +29,9 @@ class ScholarshipServiceTest extends TestCase
 
         $this->actingAs($user);
 
-        $scholarship = $this->scholarshipService->create($company, [
+        $service = $this->app->make(CreatesScholarship::class);
+
+        $scholarship = $service->create($company, [
             'label' => $this->faker->name,
             'start_date' => $this->faker->date,
             'encoded_id' => base_convert($this->faker->numberBetween(100, 10000), 10, 32)
