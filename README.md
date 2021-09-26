@@ -2,6 +2,9 @@
 
 # Axeasy is a web app that helps Axie Infinity scholarship managers keep track of users, assets and scholarship profitability.
 
+![image](https://user-images.githubusercontent.com/20173930/134164197-76c0a0d2-1d8c-4773-8e48-56ee518bb7e4.png)
+
+
 The API makes use of Laravel sanctum for authentication. Calls should be made to the xsrf-cookie endpoint which provides a cookie to authenticate further calls.
 
 All actions beyond register/login/cookie require a logged in user
