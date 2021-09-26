@@ -17,8 +17,8 @@ class RegistrationTest extends TestCase
         parent::setUp();
 
         $this->withHeaders([
-            'Origin' => 'localhost',
-            'Referer' => 'localhost',
+            'Origin' => 'localhost:8000',
+            'Referer' => 'localhost:8000',
             'Accept' => 'application/json'
         ]);
     }

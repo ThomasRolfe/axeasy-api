@@ -3,6 +3,7 @@
 namespace App\Models\Scholarship;
 
 use App\Models\Company\Company;
+use App\Models\EarnableTarget\EarnableTarget;
 use Database\Factories\ScholarshipFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,4 +23,11 @@ class Scholarship extends Model implements ScholarshipInterface
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function earnableTargets()
+    {
+        return $this->hasMany(EarnableTarget::class);
+    }
+
+
 }
