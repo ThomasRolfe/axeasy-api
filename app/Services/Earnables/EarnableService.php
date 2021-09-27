@@ -13,7 +13,7 @@ class EarnableService implements GetsEarnable
     {
     }
 
-    public function getByLabel(string $label): Earnable
+    public function getByLabel(string $label): ?Earnable
     {
         $earnable = $this->earnableRepository->getByLabel($label);
 

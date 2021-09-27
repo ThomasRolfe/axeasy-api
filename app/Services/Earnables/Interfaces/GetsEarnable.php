@@ -6,5 +6,5 @@ use App\Models\Earnable\Earnable;
 
 interface GetsEarnable
 {
-    public function getByLabel(string $name): Earnable;
+    public function getByLabel(string $name): ?Earnable;
 }

@@ -28,6 +28,7 @@ class EarnableTargetServiceTest extends TestCase
         $earnable = $earnableService->getByLabel('SLP');
         $frequency = TimeFrequency::makeMonthly();
 
+        // Action being tested
         $target = $earnableTargetService->create($scholarship, $earnable, 3000, $frequency);
 
         $this->assertTrue($scholarship->earnableTargets->contains($target));
