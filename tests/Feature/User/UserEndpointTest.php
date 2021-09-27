@@ -24,6 +24,11 @@ class UserEndpointTest extends TestCase
         ]);
     }
 
+    public function test_endpoint_user_data_returned()
+    {
+        // check for data structure in same way as scholarship creation checks
+    }
+
     public function test_endpoint_company_returned_with_user()
     {
         $user = $this->app->make(UserInterface::class)::factory()->create();

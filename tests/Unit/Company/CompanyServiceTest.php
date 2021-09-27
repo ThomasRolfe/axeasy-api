@@ -31,6 +31,7 @@ class CompanyServiceTest extends TestCase
 
         $this->assertInstanceOf(CompanyInterface::class, $company);
         $this->assertEquals($data['label'], $company->label);
+
         Event::assertDispatched(CompanyCreated::class);
     }
 

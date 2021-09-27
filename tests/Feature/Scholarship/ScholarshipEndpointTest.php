@@ -158,6 +158,7 @@ class ScholarshipEndpointTest extends TestCase
         $response->assertStatus(403);
     }
 
+    // TODO: change this name to validation errors
     public function test_endpoint_scholarship_cannot_be_created_with_invalid_attributes()
     {
         $user = $this->app->make(UserInterface::class)::factory()->create();
