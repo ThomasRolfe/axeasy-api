@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\EarnableTarget;
 
+use App\Exceptions\InvalidEarnableTargetAmount;
 use App\Models\Scholarship\ScholarshipInterface;
 use App\Services\Earnables\Interfaces\CreatesEarnableTarget;
 use App\Services\Earnables\Interfaces\GetsEarnable;
@@ -56,6 +57,18 @@ class EarnableTargetServiceTest extends TestCase
         $earnableTargetService = $this->app->make(CreatesEarnableTarget::class);
         $this->expectError();
         $earnableTargetService->create(null, null, 'a string', null);
+    }
+
+    public function test_service_earnable_target_cannot_be_set_with_negative_amount() {
+        $earnableTargetService = $this->app->make(CreatesEarnableTarget::class);
+        $earnableService = $this->app->make(GetsEarnable::class);
+
+        $scholarship = $this->app->make(ScholarshipInterface::class)::factory()->create();
+        $earnable = $earnableService->getByLabel('SLP');
+        $frequency = TimeFrequency::makeMonthly();
+
+        $this->expectException(InvalidEarnableTargetAmount::class);
+        $earnableTargetService->create($scholarship, $earnable, -3000, $frequency);
     }
 
 }

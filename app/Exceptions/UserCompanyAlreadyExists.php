@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class UserCompanyAlreadyExistsException extends Exception
+class UserCompanyAlreadyExists extends Exception
 {
     public function report()
     {

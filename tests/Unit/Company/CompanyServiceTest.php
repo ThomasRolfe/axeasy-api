@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Company;
 
-use App\Exceptions\UserCompanyAlreadyExistsException;
+use App\Exceptions\UserCompanyAlreadyExists;
 use App\Models\Company\CompanyInterface;
 use App\Models\User\UserInterface;
 use App\Services\Company\Interfaces\CreatesCompany;
@@ -38,7 +38,7 @@ class CompanyServiceTest extends TestCase
         $company = $this->app->make(CompanyInterface::class)::factory()->create();
         $user->company()->associate($company);
 
-        $this->expectException(UserCompanyAlreadyExistsException::class);
+        $this->expectException(UserCompanyAlreadyExists::class);
 
         $companyService->create($user, ['label' => $this->faker->company]);
     }
@@ -93,7 +93,7 @@ class CompanyServiceTest extends TestCase
 
         $user->company()->associate($company)->fresh();
 
-        $this->expectException(UserCompanyAlreadyExistsException::class);
+        $this->expectException(UserCompanyAlreadyExists::class);
 
         $linksCompanyService->linkUserToCompany($user, $newCompany);
     }

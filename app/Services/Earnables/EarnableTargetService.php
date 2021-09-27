@@ -2,6 +2,7 @@
 
 namespace App\Services\Earnables;
 
+use App\Exceptions\InvalidEarnableTargetAmount;
 use App\Models\Earnable\EarnableInterface;
 use App\Models\EarnableTarget\EarnableTarget;
 use App\Models\Scholarship\ScholarshipInterface;
@@ -21,6 +22,11 @@ class EarnableTargetService implements CreatesEarnableTarget
         int $amount,
         TimeFrequency $frequency
     ): EarnableTarget {
+
+        if($amount <= 0) {
+            throw new InvalidEarnableTargetAmount();
+        }
+
         $this->removeExistingTarget($scholarship, $earnable);
 
         $earnableTarget = $this->earnableTargetRepository->new([

@@ -29,5 +29,4 @@ class Scholarship extends Model implements ScholarshipInterface
         return $this->hasMany(EarnableTarget::class);
     }
 
-
 }

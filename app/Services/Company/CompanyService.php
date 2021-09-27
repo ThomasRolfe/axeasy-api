@@ -3,7 +3,7 @@
 namespace App\Services\Company;
 
 use App\Events\CompanyCreated;
-use App\Exceptions\UserCompanyAlreadyExistsException;
+use App\Exceptions\UserCompanyAlreadyExists;
 use App\Models\Company\CompanyInterface;
 use App\Models\User\UserInterface;
 use App\Repositories\Company\CompanyRepositoryInterface;
@@ -21,7 +21,7 @@ class CompanyService implements CreatesCompany, LinksUserToCompany
     public function create(Authenticatable|UserInterface $user, array $attributes): ?Model
     {
         if ($user->company) {
-            throw new UserCompanyAlreadyExistsException('User already connected to a company', 422);
+            throw new UserCompanyAlreadyExists('User already connected to a company', 422);
         }
 
         $company = $this->companyRepository->create($attributes);
@@ -34,7 +34,7 @@ class CompanyService implements CreatesCompany, LinksUserToCompany
     public function linkUserToCompany(UserInterface $user, CompanyInterface $company)
     {
         if($user->company) {
-            throw new UserCompanyAlreadyExistsException('User already connected to a company', 422);
+            throw new UserCompanyAlreadyExists('User already connected to a company', 422);
         }
 
         $user->company()->associate($company)->save();

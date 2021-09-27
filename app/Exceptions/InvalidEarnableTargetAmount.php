@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class UserCompanyNotFoundException extends Exception
+class InvalidEarnableTargetAmount extends Exception
 {
     public function report()
     {

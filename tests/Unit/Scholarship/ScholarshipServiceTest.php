@@ -44,4 +44,8 @@ class ScholarshipServiceTest extends TestCase
         $this->assertTrue($scholarship->company->users->contains('id', $user->id));
     }
 
+    public function test_service_scholarship_created_without_company_throws_exception()
+    {
+
+    }
 }
