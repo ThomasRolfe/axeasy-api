@@ -7,5 +7,5 @@ use App\Models\User\UserInterface;
 
 interface LinksUserToCompany
 {
-    public function linkUserToCompany(UserInterface $user, CompanyInterface $company);
+    public function linkUserToCompany(UserInterface $user, CompanyInterface $company): void;
 }

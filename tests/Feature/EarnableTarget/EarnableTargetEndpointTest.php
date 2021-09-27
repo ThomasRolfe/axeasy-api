@@ -29,7 +29,4 @@ class EarnableTargetEndpointTest extends TestCase
     {
     }
 
-
-
-
 }

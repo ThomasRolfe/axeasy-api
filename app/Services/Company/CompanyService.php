@@ -31,7 +31,7 @@ class CompanyService implements CreatesCompany, LinksUserToCompany
         return $company;
     }
 
-    public function linkUserToCompany(UserInterface $user, CompanyInterface $company)
+    public function linkUserToCompany(UserInterface $user, CompanyInterface $company): void
     {
         if($user->company) {
             throw new UserCompanyAlreadyExists('User already connected to a company', 422);

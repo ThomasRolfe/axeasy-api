@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Company;
 
+use App\Events\CompanyCreated;
 use App\Exceptions\UserCompanyAlreadyExists;
 use App\Models\Company\CompanyInterface;
 use App\Models\User\UserInterface;
@@ -10,6 +11,7 @@ use App\Services\Company\Interfaces\LinksUserToCompany;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class CompanyServiceTest extends TestCase
@@ -19,6 +21,7 @@ class CompanyServiceTest extends TestCase
 
     public function test_service_company_can_be_created()
     {
+        Event::fake();
         $user = $this->app->make(UserInterface::class)::factory()->create();
         $companyService = $this->app->make(CreatesCompany::class);
 
@@ -28,6 +31,7 @@ class CompanyServiceTest extends TestCase
 
         $this->assertInstanceOf(CompanyInterface::class, $company);
         $this->assertEquals($data['label'], $company->label);
+        Event::assertDispatched(CompanyCreated::class);
     }
 
     public function test_service_user_with_company_cannot_create_company()
